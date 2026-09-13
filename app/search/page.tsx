@@ -1,59 +1,5 @@
-const vehicles = [
-  {
-    id: 12,
-    make: "Toyota",
-    model: "Corolla",
-    type: "sedan",
-    location: "Southport",
-    price: 100,
-    availability: "available",
-  },
-  {
-    id: 13,
-    make: "Mazda",
-    model: "CX-5",
-    type: "suv",
-    location: "Gold Coast",
-    price: 130,
-    availability: "available",
-  },
-  {
-    id: 14,
-    make: "Honda",
-    model: "Civic",
-    type: "hatch",
-    location: "Brisbane",
-    price: 90,
-    availability: "available",
-  },
-  {
-    id: 15,
-    make: "Toyota",
-    model: "HiAce",
-    type: "van",
-    location: "Southport",
-    price: 150,
-    availability: "unavailable",
-  },
-  {
-    id: 16,
-    make: "Ford",
-    model: "Mustang",
-    type: "convertible",
-    location: "Byron Bay",
-    price: 220,
-    availability: "available",
-  },
-  {
-    id: 17,
-    make: "Kia",
-    model: "Sportage",
-    type: "suv",
-    location: "Sydney",
-    price: 120,
-    availability: "available",
-  },
-];
+import Link from "next/link";
+import { getAvailableVehicles } from "@/app/lib/data";
 
 type SearchPageProps = {
   searchParams: Promise<{
@@ -67,10 +13,11 @@ type SearchPageProps = {
 export default async function SearchPage({ searchParams }: SearchPageProps) {
   const { start_date, end_date, location, type } = await searchParams;
 
-  const results = vehicles.filter((vehicle) => {
-    if (location && vehicle.location !== location) return false;
-    if (type && vehicle.type !== type) return false;
-    return true;
+  const results = getAvailableVehicles({
+    startDate: start_date ?? "",
+    endDate: end_date ?? "",
+    location,
+    type,
   });
 
   return (
@@ -80,7 +27,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
       </header>
 
       <main className="flex flex-1 flex-col gap-6 px-6 py-10">
-        <div className="text-sm text-zinc-600">
+        <div className="text-sm opacity-70">
           <p>Start date: {start_date}</p>
           <p>End date: {end_date}</p>
           <p>Location: {location}</p>
@@ -100,6 +47,17 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
               <p>Location: {vehicle.location}</p>
               <p>Price: ${vehicle.price}/day</p>
               <p>Availability: {vehicle.availability}</p>
+
+              {vehicle.availability === "available" ? (
+                <Link
+                  href={`/book?vehicle_id=${vehicle.id}&start_date=${start_date}&end_date=${end_date}`}
+                  className="mt-2 inline-block rounded bg-black px-4 py-2 text-white"
+                >
+                  Book Now
+                </Link>
+              ) : (
+                <p className="mt-2 text-red-600">Not available for these dates</p>
+              )}
             </div>
           ))}
 

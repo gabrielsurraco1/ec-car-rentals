@@ -20,7 +20,7 @@ export default function Home() {
         <form
           action="/search"
           method="GET"
-          className="flex w-full max-w-md flex-col gap-4"
+          className="flex w-full max-w-md flex-col gap-4 rounded-lg bg-white p-6 text-zinc-900 shadow-sm"
         >
           <div className="flex flex-col gap-1">
             <label htmlFor="start_date">Start Date</label>
