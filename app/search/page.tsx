@@ -14,6 +14,9 @@ type SearchPageProps = {
 export default async function SearchPage({ searchParams }: SearchPageProps) {
   const { start_date, end_date, location, type } = await searchParams;
 
+  // Simulate real network latency so the loading state is visible.
+  await new Promise((resolve) => setTimeout(resolve, 600));
+
   const results = getAvailableVehicles({
     startDate: start_date ?? "",
     endDate: end_date ?? "",
