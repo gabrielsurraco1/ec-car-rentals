@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getAvailableVehicles } from "@/app/lib/data";
+import Header from "@/app/components/Header";
 
 type SearchPageProps = {
   searchParams: Promise<{
@@ -22,9 +23,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
   return (
     <div className="flex flex-col flex-1">
-      <header className="border-b border-black/[.08] px-6 py-4">
-        <h1 className="text-2xl font-semibold">East Coast Car Rentals</h1>
-      </header>
+      <Header />
 
       <main className="flex flex-1 flex-col gap-6 px-6 py-10">
         <div className="text-sm opacity-70">

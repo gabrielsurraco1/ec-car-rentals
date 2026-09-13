@@ -1,4 +1,5 @@
 import { vehicles } from "@/app/lib/data";
+import Header from "@/app/components/Header";
 
 type BookPageProps = {
   searchParams: Promise<{
@@ -16,9 +17,7 @@ export default async function BookPage({ searchParams }: BookPageProps) {
 
   return (
     <div className="flex flex-col flex-1">
-      <header className="border-b border-black/[.08] px-6 py-4">
-        <h1 className="text-2xl font-semibold">East Coast Car Rentals</h1>
-      </header>
+      <Header />
 
       <main className="flex flex-1 justify-center px-6 py-10">
         <div className="w-full max-w-md">
